@@ -2,10 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\BarangModel;
-use App\Models\User;
-use App\Models\VendorModel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
@@ -13,19 +11,18 @@ class HomeController extends Controller
      * Display a listing of the resource.
      */
 
-        public function index()
-        {
-            $users = User::with('role')->get();
-            $userCount = User::count();
-            $barangCount = BarangModel::count();
-            $vendorCount = VendorModel::count();
-            
-
-        $barangs = BarangModel::take(7)->get();
-        $vendors = VendorModel::take(7)->get();
-
-            return view('dashboard', compact('users','barangs', 'vendors','userCount', 'barangCount', 'vendorCount'));
-        }
+     public function index()
+     {
+         $users = DB::table('user_table')->join('role_table', 'user_table.id_role', '=', 'role_table.id_role')->get();
+         $userCount = DB::table('user_table')->count();
+         $barangCount = DB::table('barang')->count();
+         $vendorCount = DB::table('vendor')->count();
+ 
+         $barangs = DB::table('barang')->join('jenis_barang', 'barang.id_jenis_barang', '=', 'jenis_barang.id_jenis_barang')->take(7)->get();
+         $vendors = DB::table('vendor')->join('badan_hukum_vendor', 'vendor.id_badan_hukum', '=', 'badan_hukum_vendor.id_badan_hukum')->take(7)->get();
+ 
+         return view('dashboard', compact('users', 'barangs', 'vendors', 'userCount', 'barangCount', 'vendorCount'));
+     }
     
 
     /**

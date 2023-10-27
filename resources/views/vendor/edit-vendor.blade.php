@@ -34,10 +34,9 @@ Form Edit Data Vendor
               <label for="badan_hukum" class="col-sm-2 col-form-label">Badan Hukum</label>
               <div class="col-sm-10">
                 <select name="badan_hukum" class="form-control" id="badan_hukum" type="number">
-                    <option value="1" @if(old('badan_hukum', $vendor->badan_hukum) == 1) selected @endif>PT</option>
-                    <option value="2" @if(old('badan_hukum', $vendor->badan_hukum) == 2) selected @endif>CV</option>
-                    <option value="3" @if(old('badan_hukum', $vendor->badan_hukum) == 3) selected @endif>UD</option>
-                    <option value="4" @if(old('badan_hukum', $vendor->badan_hukum) == 4) selected @endif>Perseorangan</option>
+                  @foreach ($badan_hukum as $item)
+                  <option value="{{ $item->id_badan_hukum }}" @if($item->id_badan_hukum == old('id_badan_hukum', $vendor->nama_hukum)) selected @endif>{{ $item->nama_hukum }}</option>
+              @endforeach
                 </select>
             </div>
             </div>

@@ -83,7 +83,7 @@
                             @foreach ($barangs as $barang)
                                 <tr>
                                     <td>{{ $barang->nama_barang }}</td>
-                                    <td>{{ $barang->jenis_barang }}</td>
+                                    <td>{{ $barang->nama_jenis }}</td>
                                 </tr>
                             @endforeach
                         </tbody>
@@ -106,7 +106,7 @@
                             @foreach ($vendors as $vendor)
                                 <tr>
                                     <td>{{ $vendor->nama_vendor }}</td>
-                                    <td>{{ $vendor->badan_hukum }}</td>
+                                    <td>{{ $vendor->nama_hukum }}</td>
                                 </tr>
                             @endforeach
                         </tbody>

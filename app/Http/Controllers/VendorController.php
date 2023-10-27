@@ -40,8 +40,14 @@ class VendorController extends Controller
     
         public function edit($id_vendor)
         {
-            $vendor = DB::table('vendor')->where('id_vendor', $id_vendor)->first();
-            return view('vendor.edit-vendor', compact('vendor'));
+            $vendor = DB::table('vendor')
+            ->join('badan_hukum_vendor', 'vendor.id_badan_hukum', '=', 'badan_hukum_vendor.id_badan_hukum')
+            ->select('vendor.*', 'badan_hukum_vendor.nama_hukum as nama_hukum')
+            ->where('vendor.id_vendor', $id_vendor)
+            ->first();
+
+        $badan_hukum = DB::table('badan_hukum_vendor')->get();
+        return view('vendor.edit-vendor', compact('vendor', 'badan_hukum'));
         }
     
         public function update(Request $request, $id_vendor)
@@ -50,7 +56,7 @@ class VendorController extends Controller
                 ->where('id_vendor', $id_vendor)
                 ->update([
                     'nama_vendor' => $request->input('nama_vendor'),
-                    'badan_hukum' => $request->input('badan_hukum'),
+                    'id_badan_hukum' => $request->input('badan_hukum'),
                     'status_vendor' => $request->input('status'),
                 ]);
     
