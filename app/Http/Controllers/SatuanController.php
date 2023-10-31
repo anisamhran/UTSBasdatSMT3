@@ -9,11 +9,12 @@ use Illuminate\Support\Facades\DB;
 class SatuanController extends Controller
 {
 
-        public function index()
-        {
-            $satuans = DB::table('satuan')->get();
-            return view('satuan.data-satuan', compact('satuans'));
-        }
+    public function index()
+    {
+        $satuans = SatuanModel::whereNull('deleted_at')->get();
+        return view('satuan.data-satuan', compact('satuans'));
+    }
+    
     
         public function create()
         {
@@ -57,22 +58,18 @@ class SatuanController extends Controller
 }
 
     
-        public function onlyTrashed()
-        {
-            $trashes = DB::table('satuan')
-                ->whereNotNull('deleted_at')
-                ->get();
-    
-            return view('satuan.deleted-satuan', compact('trashes'));
-        }
+public function onlyTrashed()
+{
+    $trashes = SatuanModel::onlyTrashed()->get();
+    return view('satuan.deleted-satuan', compact('trashes'));
+}
 
-        public function deleted()
-        {
-            $trashes = SatuanModel::onlyTrashed()->get();
-        
-            return view('satuan.deleted-satuan', compact('trashes'));
-        }
-        
+public function deleted()
+{
+    $trashes = SatuanModel::withTrashed()->whereNotNull('deleted_at')->get();
+    return view('satuan.deleted-satuan', compact('trashes'));
+}
+
     
         public function restore($id_satuan)
         {

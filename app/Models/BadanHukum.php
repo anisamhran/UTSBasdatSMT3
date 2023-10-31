@@ -10,6 +10,10 @@ class BadanHukum extends Model
 {
     use HasFactory;
     public $timestamps = false;
+    protected $table = 'badan_hukum_vendor';
+
+    protected $primaryKey = 'id_badan_hukum';
+
 
     use SoftDeletes;
     public function vendor()

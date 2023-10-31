@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\VendorModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -10,14 +11,16 @@ class VendorController extends Controller
    
 
     public function index()
-    {
-        $vendors = DB::table('vendor')
-            ->join('badan_hukum_vendor', 'vendor.id_badan_hukum', '=', 'badan_hukum_vendor.id_badan_hukum')
-            ->select('vendor.*', 'badan_hukum_vendor.nama_hukum')
-            ->get();
+{
+    $vendors = VendorModel::whereNull('vendor.deleted_at') // Specify the table name
+        ->join('badan_hukum_vendor', 'vendor.id_badan_hukum', '=', 'badan_hukum_vendor.id_badan_hukum')
+        ->select('vendor.*', 'badan_hukum_vendor.nama_hukum')
+        ->get();
+
+    return view('vendor.data-vendor', compact('vendors'));
+}
     
-        return view('vendor.data-vendor', compact('vendors'));
-    }
+    
     
     
         public function create()
@@ -75,14 +78,15 @@ class VendorController extends Controller
 
         public function deleted()
         {
-            $trashes = DB::table('vendor')
-            ->join('badan_hukum_vendor', 'vendor.id_badan_hukum', '=', 'badan_hukum_vendor.id_badan_hukum')
-            ->select('vendor.*', 'badan_hukum_vendor.nama_hukum')
-            ->whereNotNull('vendor.deleted_at')
-            ->get();
-    
-        return view('vendor.deleted-vendor', compact('trashes'));
+            $trashes = VendorModel::withTrashed()
+                ->join('badan_hukum_vendor', 'vendor.id_badan_hukum', '=', 'badan_hukum_vendor.id_badan_hukum')
+                ->select('vendor.*', 'badan_hukum_vendor.nama_hukum')
+                ->whereNotNull('vendor.deleted_at')
+                ->get();
+        
+            return view('vendor.deleted-vendor', compact('trashes'));
         }
+
         
 
     

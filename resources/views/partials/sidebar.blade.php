@@ -13,6 +13,11 @@
         <div class="collapse" id="data-master">
             <ul class="nav flex-column sub-menu">
                 <li class="nav-item">
+                    <a class="nav-link" href="{{ route('data-jenis-barang') }}">
+                        <span class="menu-title">Jenis Barang</span>
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="{{ route('data-barang') }}">
                         <span class="menu-title">Barang</span>
                     </a>
@@ -23,12 +28,22 @@
                     </a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link" href="{{ route('data-badan-hukum') }}">
+                        <span class="menu-title">Badan Hukm Vendor</span>
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="{{ route('data-satuan') }}">
                         <span class="menu-title">Satuan</span>
                     </a>
                 </li>
             </ul>
             <ul class="nav flex-column sub-menu">   
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('data-jenis-barang-dihapus') }}">
+                        <span class="menu-title">Jenis Barang Terhapus</span>
+                    </a>
+                </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('data-barang-dihapus') }}">
                         <span class="menu-title">Barang Terhapus</span>
@@ -37,6 +52,11 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('data-vendor-dihapus') }}">
                         <span class="menu-title">Vendor Terhapus</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('data-badan-hukum-dihapus') }}">
+                        <span class="menu-title">Badan Hukum Terhapus</span>
                     </a>
                 </li>
                 <li class="nav-item">

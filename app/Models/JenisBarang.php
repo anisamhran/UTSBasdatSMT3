@@ -9,6 +9,12 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class JenisBarang extends Model
 {
     use HasFactory;
+
+    protected $table = 'jenis_barang';
+
+    protected $primaryKey = 'id_jenis_barang';
+
+
     public $timestamps = false;
 
     use SoftDeletes;

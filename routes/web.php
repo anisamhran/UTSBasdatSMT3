@@ -6,6 +6,9 @@ Route::get('/', function () {
     return view('login');
 });
 
+Route::get('/dashboard', [\App\Http\Controllers\HomeController::class, 'index'])->name('dashboard');
+
+
 //SATUAN
 Route::get('/data-satuan', [\App\Http\Controllers\SatuanController::class, 'index'])->name('data-satuan');
 Route::get('/create-satuan', [\App\Http\Controllers\SatuanController::class, 'create'])->name('create-satuan');
@@ -15,6 +18,17 @@ Route::put('/edit-satuan/{id}', [\App\Http\Controllers\SatuanController::class, 
 Route::delete('/hapus-satuan/{id}', [\App\Http\Controllers\SatuanController::class, 'destroy'])->name('destroy-satuan');
 Route::get('/data-satuan-dihapus', [\App\Http\Controllers\SatuanController::class, 'deleted'])->name('data-satuan-dihapus');
 Route::get('/restore-satuan-dihapus{id}', [\App\Http\Controllers\SatuanController::class, 'restore'])->name('restore-satuan-dihapus');
+
+
+//JENIS BARANG
+Route::get('/data-jenis-barang', [\App\Http\Controllers\JenisBarangController::class, 'index'])->name('data-jenis-barang');
+Route::get('/create-jenis-barang', [\App\Http\Controllers\JenisBarangController::class, 'create'])->name('create-jenis-barang');
+Route::post('/create-jenis-barang', [\App\Http\Controllers\JenisBarangController::class, 'store'])->name('save-jenis-barang');
+Route::get('/edit-jenis-barang/{id}', [\App\Http\Controllers\JenisBarangController::class, 'edit'])->name('edit-jenis-barang');
+Route::put('/edit-jenis-barang/{id}', [\App\Http\Controllers\JenisBarangController::class, 'update'])->name('update-jenis-barang');
+Route::delete('/hapus-jenis-barang/{id}', [\App\Http\Controllers\JenisBarangController::class, 'destroy'])->name('destroy-jenis-barang');
+Route::get('/data-jenis-barang-dihapus', [\App\Http\Controllers\JenisBarangController::class, 'deleted'])->name('data-jenis-barang-dihapus');
+Route::get('/restore-jenis-barang-dihapus{id}', [\App\Http\Controllers\JenisBarangController::class, 'restore'])->name('restore-jenis-barang-dihapus');
 
 
 //BARANG
@@ -39,6 +53,17 @@ Route::get('/data-vendor-dihapus', [\App\Http\Controllers\VendorController::clas
 Route::get('/restore-vendor-dihapus{id}', [\App\Http\Controllers\VendorController::class, 'restore'])->name('restore-vendor-dihapus');
 
 
+//BADAN HUKUM VENDOR
+Route::get('/data-badan-hukum', [\App\Http\Controllers\BadanHukumController::class, 'index'])->name('data-badan-hukum');
+Route::get('/create-badan-hukum', [\App\Http\Controllers\BadanHukumController::class, 'create'])->name('create-badan-hukum');
+Route::post('/create-badan-hukum', [\App\Http\Controllers\BadanHukumController::class, 'store'])->name('save-badan-hukum');
+Route::get('/edit-badan-hukum/{id}', [\App\Http\Controllers\BadanHukumController::class, 'edit'])->name('edit-badan-hukum');
+Route::put('/edit-badan-hukum/{id}', [\App\Http\Controllers\BadanHukumController::class, 'update'])->name('update-badan-hukum');
+Route::delete('/hapus-badan-hukum/{id}', [\App\Http\Controllers\BadanHukumController::class, 'destroy'])->name('destroy-badan-hukum');
+Route::get('/data-badan-hukum-dihapus', [\App\Http\Controllers\BadanHukumController::class, 'deleted'])->name('data-badan-hukum-dihapus');
+Route::get('/restore-badan-hukum-dihapus{id}', [\App\Http\Controllers\BadanHukumController::class, 'restore'])->name('restore-badan-hukum-dihapus');
+
+
 //USER
 Route::get('/data-user', [\App\Http\Controllers\UserController::class, 'index'])->name('data-user');
 Route::get('/create-user', [\App\Http\Controllers\UserController::class, 'create'])->name('create-user');
@@ -49,8 +74,6 @@ Route::delete('/hapus-user/{id}', [\App\Http\Controllers\UserController::class, 
 Route::get('/data-user-dihapus', [\App\Http\Controllers\UserController::class, 'deleted'])->name('data-user-dihapus');
 Route::get('/restore-user-dihapus{id}', [\App\Http\Controllers\UserController::class, 'restore'])->name('restore-user-dihapus');
 
-
-Route::get('/dashboard', [\App\Http\Controllers\HomeController::class, 'index'])->name('dashboard');
 
 //AUTHENTICATION
 Route::get('/login', [\App\Http\Controllers\AuthController::class, 'login'])->name('login');

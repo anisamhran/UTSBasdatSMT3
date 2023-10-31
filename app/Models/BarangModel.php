@@ -38,5 +38,5 @@ class BarangModel extends Model
         return $this->hasMany(DetailPengadaanModel::class);
     }
 
-   
+
 }

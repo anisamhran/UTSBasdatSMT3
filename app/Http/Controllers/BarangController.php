@@ -3,6 +3,7 @@
     namespace App\Http\Controllers;
 
 
+    use App\Models\BarangModel;
     use Illuminate\Http\Request;
     use Illuminate\Support\Facades\DB;
 
@@ -11,14 +12,16 @@
 
         public function index()
         {
-            $barangs = DB::table('barang')
+            $barangs = BarangModel::whereNull('barang.deleted_at') // Specify the table name
                 ->join('satuan', 'barang.id_satuan', '=', 'satuan.id_satuan')
                 ->join('jenis_barang', 'barang.id_jenis_barang', '=', 'jenis_barang.id_jenis_barang')
                 ->select('barang.*', 'satuan.nama_satuan as nama_satuan', 'jenis_barang.nama_jenis as nama_jenis')
                 ->get();
-
+        
             return view('barang.data-barang', compact('barangs'));
         }
+        
+        
 
 
         public function create()
@@ -75,20 +78,18 @@
 
     return redirect()->route('data-barang-dihapus')->with('success', 'Data barang berhasil dihapus');
 }
-        public function deleted()
-        {
-            
-                $trashes = DB::table('barang')
-                    ->join('jenis_barang', 'barang.id_jenis_barang', '=', 'jenis_barang.id_jenis_barang')
-                    ->join('satuan', 'barang.id_satuan', '=', 'satuan.id_satuan')
-                    ->select('barang.*', 'jenis_barang.nama_jenis', 'satuan.nama_satuan')
-                    ->whereNotNull('barang.deleted_at')
-                    ->get();
-            
-                return view('barang.deleted-data', compact('trashes'));
-            
-            
-        }
+public function deleted()
+{
+    $trashes = BarangModel::withTrashed()
+        ->join('satuan', 'barang.id_satuan', '=', 'satuan.id_satuan')
+        ->join('jenis_barang', 'barang.id_jenis_barang', '=', 'jenis_barang.id_jenis_barang')
+        ->select('barang.*', 'satuan.nama_satuan', 'jenis_barang.nama_jenis')
+        ->whereNotNull('barang.deleted_at')
+        ->get();
+
+    return view('barang.deleted-data', compact('trashes'));
+}
+
 
         public function restore($id_barang)
         {
